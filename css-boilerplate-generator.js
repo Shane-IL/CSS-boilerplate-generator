@@ -23,7 +23,13 @@ const CssBoilerPlateGenerator = {
             if(idMatches?.length > 0)ansArr.push("#"+idMatches[0].substring(idMatches[0].indexOf('"') + 1, idMatches[0].lastIndexOf('"')));
 
             const classMatches = line.match(classesRegex);
-            if(classMatches?.length > 0)ansArr.push("."+classMatches[0].substring(classMatches[0].indexOf('"') + 1, classMatches[0].lastIndexOf('"')));
+            if(classMatches?.length > 0) {
+                const classString = classMatches[0].substring(classMatches[0].indexOf('"') + 1, classMatches[0].lastIndexOf('"'));
+                const classArray = classString.split(" ");
+                for(let className of classArray) {
+                    ansArr.push("."+className);
+                }
+            }
         }
 
         const ansSet = new Set(ansArr.sort());
