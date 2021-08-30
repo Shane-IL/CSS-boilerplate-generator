@@ -2,8 +2,8 @@
 
 To make a CSS file add this to a node script:
 
-`const cssClassGenerator = require('./css-class-generator.js');`  
-`cssClassGenerator.generateCSSBoilerplate();`
+`const CssBoilerPlateGenerator = require('./css-boilerplate-generator.js');`  
+`CssBoilerPlateGenerator.generateCSSBoilerplate();`
 
 Currently, the script looks for an `index.html` file in the root and then generates the a boilerplate CSS files names `styles.css` at the same root with a list of the main html sections as well as all the id's and classes with no stying
 
