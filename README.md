@@ -26,8 +26,3 @@ It can also be overridden with an array of whatever default selectors you want.
 
 This was mainly made for the specific use case where I needed an empty css file with all the classes from an html page, in the future I will add the option to pass in  some default styling options.
 
--------------------------
-
-### Known issues ###
-
-The regex matching only works with single classes, elements with multiple classes will break it. This was enough for the usecase I had, will try to add support for multiple classes on single elements in the future.
