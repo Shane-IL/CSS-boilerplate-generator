@@ -1,4 +1,6 @@
-import fs from 'fs';
+import chalk from 'chalk';
+import {lstat} from 'fs/promises';
+import { createReadStream, createWriteStream, writeFile } from 'fs';
 import readline from 'readline';
 
 const classesRegex = /class="([a-z0-9 -])+"/;
@@ -9,7 +11,18 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
     'body',
     '*'
 ]) {
-    const fileStream = fs.createReadStream(inputPath);
+
+    try {
+        const stats = await lstat(inputPath);
+        if(!stats.isFile()) {
+            throw new Error('Input path does not lead to a file');
+        }
+    } catch (error) {
+        console.error(error, chalk.red.bold('ERROR'));
+        process.exit(1);
+    }
+
+    const fileStream =  createReadStream(inputPath);
 
     const rl = readline.createInterface({
         input: fileStream
@@ -33,12 +46,12 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
 
     const ansSet = new Set(ansArr.sort());
 
-    fs.writeFile(outputPath, '', err=> {
+    writeFile(outputPath, '', err=> {
         if(err) {
             console.error(err)
         } else {
             console.log("file created");
-            const writeStream = fs.createWriteStream(outputPath);
+            const writeStream = createWriteStream(outputPath);
             console.log("writing default selectors");
             defaultSelectors.forEach(selector => writeCSSEntry(writeStream, selector));
             console.log("writing class selectors");
