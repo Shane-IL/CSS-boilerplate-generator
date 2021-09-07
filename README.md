@@ -1,17 +1,13 @@
 # CSS Boilerplate Generator #
 
-To make a CSS file add this to a node script:
+This CLI module creates a basic .css boilerplate file from a given .html file with all the classes and id's found in the html file.
+To run it from the cli run:
 
 ```
-const CssBoilerPlateGenerator = require('./css-boilerplate-generator.js'); 
-CssBoilerPlateGenerator.generateCSSBoilerplate(
-        inputPath : string : optional, 
-        outputPath : string : optional, 
-        defaultSelectors : arr : optional
-);
+create-css-boilerplate {input file path} {output file path}
 ```
 
-Currently, the script looks for an `index.html` file in the root and then generates a boilerplate CSS files named `styles.css` at the same root with a list of the main html sections as well as all the id's and classes with no stying. The input and output paths can be overridden by passing in a file path when calling the function.
+Currently the script only takes these two arguments and outputs the css file relative to the folder it's being run from. It also adds some default css selectors to the file
 
 The default selectors array is 
 ```
@@ -22,7 +18,7 @@ The default selectors array is
 ]
 ```
     
-It can also be overridden with an array of whatever default selectors you want. 
+My next step is to take an optional array of default selectors as an argument that will override the above default. 
 
-This was mainly made for the specific use case where I needed an empty css file with all the classes from an html page, in the future I will add the option to pass in  some default styling options.
+This was mainly made for the specific use case where I needed an empty css file with all the classes from an html page and I figured it would be a good opportunity to learn how to make an npm cli module with node. I'll slowly add options to make this as generic and useful as possible. 
 
