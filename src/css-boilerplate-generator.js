@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 
-import {lstat, writeFile} from 'fs/promises';
+import { lstat } from 'fs/promises';
 import { createReadStream, createWriteStream, existsSync } from 'fs';
 import readline from 'readline';
 
@@ -44,7 +44,6 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
     for await (const line of rl) {
         const idMatches = line.match(idsRegex);
         if(idMatches && idMatches.length > 0){
-            console.log('Found selector ', "#"+idMatches[0].substring(idMatches[0].indexOf('"') + 1, idMatches[0].lastIndexOf('"')));
             ansArr.push("#"+idMatches[0].substring(idMatches[0].indexOf('"') + 1, idMatches[0].lastIndexOf('"')));
         }
         const classMatches = line.match(classesRegex);
@@ -52,7 +51,6 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
             const classString = classMatches[0].substring(classMatches[0].indexOf('"') + 1, classMatches[0].lastIndexOf('"'));
             const classArray = classString.split(" ");
             for(let className of classArray) {
-                console.log('Found Selector ', "."+className);
                 ansArr.push("."+className);
             }
         }
@@ -61,8 +59,8 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
     const ansSet = new Set(ansArr.sort());
     console.log("Creating File");
     const writeStream = createWriteStream(outputPath);
-    defaultSelectors.forEach(selector => writeCSSEntry(writeStream, selector));
-    ansSet.forEach(selector => writeCSSEntry(writeStream, selector));
+    defaultSelectors.forEach(selector=> writeStream.write(`${selector} {\n\n\n}\n\n`));
+    ansSet.forEach(selector=> writeStream.write(`${selector} {\n\n\n}\n\n`));
     writeStream.end();
     writeStream.on('finish', () => {
         console.log("%s CSS file created successfully", chalk.green.bold('DONE'));
@@ -71,16 +69,10 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
 }
 
 async function confirmExistingFileOverride() {   
-    const answers = await inquirer.prompt([{
+    const answers = await inquirer.prompt({
         type: 'confirm',
         name: 'confirmOverride',
         message: 'A CSS file with the name specified in your outputpath already exists, do you want to override it?'
-    }]);
+    });
     return answers.confirmOverride;
 }
-
-
-function writeCSSEntry(ws, selector) {
-    ws.write(`${selector} {\n\n\n}\n\n`);
-}
-
