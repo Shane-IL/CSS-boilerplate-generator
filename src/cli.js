@@ -40,5 +40,5 @@ async function promptForMissingParams(params) {
 export async function cli(args) {
     let parsedArgs = parseArguments(args);
     parsedArgs = await promptForMissingParams(parsedArgs);
-    generateCSSBoilerplate(parsedArgs.inputPath, parsedArgs.outputPath);
+    await generateCSSBoilerplate(parsedArgs.inputPath, parsedArgs.outputPath);
 }

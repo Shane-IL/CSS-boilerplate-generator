@@ -58,6 +58,7 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
             ansSet.forEach(selector => writeCSSEntry(writeStream, selector));
             writeStream.end();
             console.log("%s CSS file created successfully", chalk.green.bold('DONE'));
+            process.exit();
         }
     });
 }
