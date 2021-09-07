@@ -35,7 +35,7 @@ async function promptForMissingParams(params) {
       inputPath: params.inputPath || answers.inputPath,
       outputPath: params.outputPath || answers.outputPath,
     };
-   }
+}
 
 export async function cli(args) {
     let parsedArgs = parseArguments(args);
