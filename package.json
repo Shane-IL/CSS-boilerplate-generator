@@ -1,0 +1,35 @@
+{
+  "name": "@shane_il/css-boilerplate-generator",
+  "version": "1.0.0",
+  "description": "Generates a simple CSS boilerplate file with id's and classes from a given .html file",
+  "main": "src/cli.js",
+  "bin": {
+    "@shane_il/create-css-boilerplate": "bin/create-css-boilerplate",
+    "create-css-boilerplate": "bin/create-css-boilerplate"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shane-IL/CSS-boilerplate-generator.git"
+  },
+  "keywords": [
+    "cli",
+    "create-css-boilerplate"
+  ],
+  "author": "Shane Goodson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shane-IL/CSS-boilerplate-generator/issues"
+  },
+  "homepage": "https://github.com/Shane-IL/CSS-boilerplate-generator#readme",
+  "dependencies": {
+    "arg": "^5.0.1",
+    "esm": "^3.2.25",
+    "inquirer": "^8.1.2"
+  }
+}
