@@ -1,6 +1,6 @@
 {
   "name": "@shane_il/css-boilerplate-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates a simple CSS boilerplate file with id's and classes from a given .html file",
   "main": "src/cli.js",
   "bin": {

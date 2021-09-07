@@ -4,7 +4,7 @@ This CLI module creates a basic .css boilerplate file from a given .html file wi
 To run it from the cli run:
 
 ```
-create-css-boilerplate {input file path} {output file path}
+npx @shane_il/create-css-boilerplate {input file path} {output file path}
 ```
 
 Currently the script only takes these two arguments and outputs the css file relative to the folder it's being run from. It also adds some default css selectors to the file
