@@ -39,28 +39,27 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
         input: fileStream
     });
 
-    const ansArr = [];
+    const foundSelectors = new Set();
 
     for await (const line of rl) {
         const idMatches = line.match(idsRegex);
         if(idMatches && idMatches.length > 0){
-            ansArr.push("#"+idMatches[0].substring(idMatches[0].indexOf('"') + 1, idMatches[0].lastIndexOf('"')));
+            foundSelectors.add("#"+idMatches[0].substring(idMatches[0].indexOf('"') + 1, idMatches[0].lastIndexOf('"')));
         }
         const classMatches = line.match(classesRegex);
         if(classMatches && classMatches.length > 0) {
             const classString = classMatches[0].substring(classMatches[0].indexOf('"') + 1, classMatches[0].lastIndexOf('"'));
             const classArray = classString.split(" ");
             for(let className of classArray) {
-                ansArr.push("."+className);
+                foundSelectors.add("."+className);
             }
         }
     }
 
-    const ansSet = new Set(ansArr.sort());
     console.log("Creating File");
     const writeStream = createWriteStream(outputPath);
     defaultSelectors.forEach(selector=> writeStream.write(`${selector} {\n\n\n}\n\n`));
-    ansSet.forEach(selector=> writeStream.write(`${selector} {\n\n\n}\n\n`));
+    [...foundSelectors].sort().forEach(selector=> writeStream.write(`${selector} {\n\n\n}\n\n`));
     writeStream.end();
     writeStream.on('finish', () => {
         console.log("%s CSS file created successfully", chalk.green.bold('DONE'));
