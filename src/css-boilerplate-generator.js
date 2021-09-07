@@ -18,7 +18,7 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
             throw new Error('Input path does not lead to a file');
         }
     } catch (error) {
-        console.error(error, chalk.red.bold('ERROR'));
+        console.error(`%s ${error}`, chalk.red.bold('ERROR'));
         process.exit(1);
     }
 
@@ -50,13 +50,14 @@ export async function generateCSSBoilerplate(inputPath = "./index.html", outputP
         if(err) {
             console.error(err)
         } else {
-            console.log("file created");
+            console.log("File created");
             const writeStream = createWriteStream(outputPath);
-            console.log("writing default selectors");
+            console.log("Writing default selectors");
             defaultSelectors.forEach(selector => writeCSSEntry(writeStream, selector));
-            console.log("writing class selectors");
+            console.log("Writing id and class selectors");
             ansSet.forEach(selector => writeCSSEntry(writeStream, selector));
             writeStream.end();
+            console.log("%s CSS file created successfully", chalk.green.bold('DONE'));
         }
     });
 }
